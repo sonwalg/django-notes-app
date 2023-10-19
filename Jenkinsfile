@@ -27,7 +27,9 @@ pipeline {
         stage("Deploy"){
             steps {
                 echo "Deploying the container"
-                sh "docker-compose down && docker-compose up -d"
+                sh "docker stop docker ps -q"
+                sh "docker rm -f docker ps -aq"
+                sh "docker run -d -p 8000:8000 sonwalyogesh/my-note-app:latest"
                 
             }
         }
